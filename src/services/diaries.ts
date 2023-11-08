@@ -1,7 +1,7 @@
 import { Diary, DiaryWithoutComment, DiaryWithoutId } from '../types';
 import diariesData from './diariesData.json';
 
-const diaries: Diary[] = diariesData as Diary[];
+let diaries: Diary[] = diariesData as Diary[];
 
 export const getDiaries = (): Diary[] => diaries;
 
@@ -30,6 +30,19 @@ export const postDiaries = (newDiaryInfo: DiaryWithoutId): Diary => {
   diaries.push(newDiary);
 
   return newDiary;
+};
+
+export const updateDiary = (updatedDiary: Diary): Diary | undefined => {
+  const updatedDiaries = diaries.map((diary) => {
+    if (diary.id === updatedDiary.id) {
+      return updatedDiary;
+    }
+    return diary;
+  });
+
+  diaries = updatedDiaries;
+
+  return updatedDiary;
 };
 
 export const deleteDiary = (id: number): Diary | undefined => {
